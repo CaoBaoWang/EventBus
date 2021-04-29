@@ -36,12 +36,9 @@ const m = {
         m.notifyDatasetChange()
     },
     notifyDatasetChange(){
-        m.dataChangeListener(m.data)
+        eventBus.trigger('datasetChange',m.data)
     },
-    setOnDataChangeListener(fn){
-        m.dataChangeListener = fn
 
-    }
 
 }
 const v = {
@@ -51,7 +48,8 @@ const v = {
 
     init(){
         // 1 View  ——>  Model 监听 Model 数据改变，以便更新数据
-        m.setOnDataChangeListener(v.render)
+        // m.setOnDataChangeListener(v.render)
+        eventBus.on('datasetChange',v.render)
 
     },
     render(data) {
